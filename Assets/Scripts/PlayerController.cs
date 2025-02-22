@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class PlayerController : MonoBehaviour
 {
     [Header("Horizontal Movement Setings")]
@@ -8,12 +9,12 @@ public class PlayerController : MonoBehaviour
 
     [Header("Vertical Movement Settings")]
     [SerializeField] private float jumpForce = 45;
-    private int jumpBufferCounter = 0;
     [SerializeField] private int jumpBufferFrames;
-    private float coyoteTimeCounter = 0;
     [SerializeField] private float coyoteTime;
-    private int airJumpCounter = 0;
     [SerializeField] private int maxAirJumps;
+    private int airJumpCounter = 0;
+    private float coyoteTimeCounter = 0;
+    private int jumpBufferCounter = 0;
 
     [Header("Ground Check Settings")]
     [SerializeField] private Transform groundCheckPoint;
@@ -27,7 +28,6 @@ public class PlayerController : MonoBehaviour
     Animator anim;
 
     public static PlayerController Instance;
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -40,13 +40,11 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    // Start is called before the first frame update
     void Start()
     {
         pState = GetComponent<PlayerStateList>();
-
         rb = GetComponent<Rigidbody2D>();
-
         anim = GetComponent<Animator>();
     }
 
@@ -54,12 +52,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         GetInputs();
-        UpdateJumpVariables();
         Move();
         Jump();
         Flip();
+        UpdateJumpVariables();
     }
-
     void GetInputs()
     {
         xAxis = Input.GetAxisRaw("Horizontal");
@@ -69,57 +66,50 @@ public class PlayerController : MonoBehaviour
     {
         if (xAxis < 0)
         {
-            transform.localScale = new Vector2(-Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            transform.localScale = new Vector2(-1, transform.localScale.y);
         }
         else if (xAxis > 0)
         {
-            transform.localScale = new Vector2(Mathf.Abs(transform.localScale.x), transform.localScale.y);
+            transform.localScale = new Vector2(1, transform.localScale.y);
         }
+
     }
+
     private void Move()
     {
         rb.velocity = new Vector2(walkSpeed * xAxis, rb.velocity.y);
-        anim.SetBool("Walking", rb.velocity.x != 0 && Grounded());
+        anim.SetBool("Walking", rb.velocity.x !=0 && Grounded());
     }
     public bool Grounded()
     {
-
         if (Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, whatisGround)
-            || Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, whatisGround)
-            || Physics2D.Raycast(groundCheckPoint.position, Vector2.down, groundCheckY, whatisGround))
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(groundCheckX, 0, 0), Vector2.down, groundCheckY, whatisGround)
+            || Physics2D.Raycast(groundCheckPoint.position + new Vector3(-groundCheckX, 0, 0), Vector2.down, groundCheckY, whatisGround))
+        { return true; }
+        else { return false; }
     }
     void Jump()
     {
         if (Input.GetButtonUp("Jump") && rb.velocity.y > 0)
         {
             rb.velocity = new Vector2(rb.velocity.x, 0);
-
             pState.jumping = false;
         }
         if (!pState.jumping)
+        { 
+        if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
         {
-            if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
-            {
-                rb.velocity = new Vector3(rb.velocity.x, jumpForce);
-
-                pState.jumping = true;
-            }
-            else if (!Grounded() && airJumpCounter < maxAirJumps && Input.GetButtonDown("Jump"))
+            rb.velocity = new Vector3(rb.velocity.x, jumpForce);
+            pState.jumping = true;
+        }
+        else if(!Grounded() && airJumpCounter < maxAirJumps && Input.GetButtonDown("Jump"))
             {
                 pState.jumping = true;
                 airJumpCounter++;
                 rb.velocity = new Vector3(rb.velocity.x, jumpForce);
             }
-        }
-
         anim.SetBool("Jumping", !Grounded());
+        }
     }
     void UpdateJumpVariables()
     {
@@ -129,10 +119,7 @@ public class PlayerController : MonoBehaviour
             coyoteTimeCounter = coyoteTime;
             airJumpCounter = 0;
         }
-        else
-        {
-            coyoteTimeCounter -= Time.deltaTime;
-        }
+        else { coyoteTimeCounter -= Time.deltaTime; }
         if (Input.GetButtonDown("Jump"))
         {
             jumpBufferCounter = jumpBufferFrames;
@@ -143,3 +130,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
