@@ -39,7 +39,7 @@ public class FoodManager : MonoBehaviour
         FoodCount += amount;
     }
 
-    void SpawnAnt(GameObject antPrefab)
+    public void SpawnAnt(GameObject antPrefab)
     {
         if (antPrefab != null && spawnPoint != null)
         {
