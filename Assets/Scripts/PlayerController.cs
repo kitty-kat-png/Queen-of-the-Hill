@@ -41,8 +41,6 @@ public class PlayerController : MonoBehaviour
     [Space(5)]
 
     [Header("Recoil")]
-    [SerializeField] int recoilXSteps = 5;
-    [SerializeField] int recoilYSteps = 5;
     [SerializeField] float recoilXSpeed = 100;
     [SerializeField] float recoilYSpeed = 100;
     PlayerStateList pState;
