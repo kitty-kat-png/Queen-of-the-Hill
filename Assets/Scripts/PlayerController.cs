@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
     private void Move()
     {
         rb.velocity = new Vector2(walkSpeed * xAxis, rb.velocity.y);
-        anim.SetBool("Walking", rb.velocity.x !=0 && Grounded());
+        anim.SetBool("Walking", rb.velocity.x != 0 && Grounded());
     }
     public bool Grounded()
     {
@@ -96,19 +96,19 @@ public class PlayerController : MonoBehaviour
             pState.jumping = false;
         }
         if (!pState.jumping)
-        { 
-        if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce);
-            pState.jumping = true;
-        }
-        else if(!Grounded() && airJumpCounter < maxAirJumps && Input.GetButtonDown("Jump"))
+            if (jumpBufferCounter > 0 && coyoteTimeCounter > 0)
+            {
+                rb.velocity = new Vector3(rb.velocity.x, jumpForce);
+                pState.jumping = true;
+            }
+            else if (!Grounded() && airJumpCounter < maxAirJumps && Input.GetButtonDown("Jump"))
             {
                 pState.jumping = true;
                 airJumpCounter++;
                 rb.velocity = new Vector3(rb.velocity.x, jumpForce);
             }
-        anim.SetBool("Jumping", !Grounded());
+            anim.SetBool("Jumping", !Grounded());
         }
     }
     void UpdateJumpVariables()

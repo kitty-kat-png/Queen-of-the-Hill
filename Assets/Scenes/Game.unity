@@ -132,7 +132,7 @@ GameObject:
   m_Component:
   - component: {fileID: 65489229}
   - component: {fileID: 65489230}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -190,7 +190,9 @@ GameObject:
   - component: {fileID: 150939712}
   - component: {fileID: 150939711}
   - component: {fileID: 150939710}
+  - component: {fileID: 150939715}
   - component: {fileID: 150939714}
+  - component: {fileID: 150939716}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -214,11 +216,11 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 2
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Material: {fileID: 6200000, guid: 38f2726c1d33a1a4697deeddd1273fc2, type: 2}
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
+  m_CollisionDetection: 1
+  m_Constraints: 4
 --- !u!61 &150939711
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -236,14 +238,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.09, y: 0.65}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1, y: 1.4}
   m_EdgeRadius: 0
 --- !u!212 &150939712
 SpriteRenderer:
@@ -286,8 +288,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.9056604, g: 0.36311856, b: 0.36311856, a: 1}
+  m_Sprite: {fileID: 2087730856, guid: a38cdfb37f65ff6458c530ccd03ce602, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -309,7 +311,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 519420032}
+  - {fileID: 157046610}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -322,10 +324,85 @@ MonoBehaviour:
   m_GameObject: {fileID: 150939709}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e97e4c3f5632fd343af251648e63f514, type: 3}
+  m_Script: {fileID: 11500000, guid: a745ed1c0bd364d4894e5a3fd2a770b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  jumping: 0
+--- !u!114 &150939715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150939709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a12e30cbee253c1418590dc25986d758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 10
+  jumpForce: 45
+  jumpBufferFrames: 0
+  coyoteTime: 0.5
+  maxAirJumps: 1
+  groundCheckPoint: {fileID: 157046610}
+  groundCheckY: 0.2
+  whatisGround:
+    serializedVersion: 2
+    m_Bits: 8
+  groundCheckX: 0.5
+--- !u!95 &150939716
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 150939709}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ee55c7bf4c8207847bd583ac4bb79aa9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &157046609
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 157046610}
+  m_Layer: 0
+  m_Name: Ground Check Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &157046610
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 157046609}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.499, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 150939713}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &160667375
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,7 +413,7 @@ GameObject:
   m_Component:
   - component: {fileID: 160667376}
   - component: {fileID: 160667377}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -393,7 +470,7 @@ GameObject:
   m_Component:
   - component: {fileID: 228667604}
   - component: {fileID: 228667605}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -533,7 +610,7 @@ GameObject:
   m_Component:
   - component: {fileID: 272619521}
   - component: {fileID: 272619522}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -595,7 +672,7 @@ GameObject:
   m_Component:
   - component: {fileID: 304349634}
   - component: {fileID: 304349635}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +729,7 @@ GameObject:
   m_Component:
   - component: {fileID: 372084226}
   - component: {fileID: 372084227}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -710,7 +787,7 @@ GameObject:
   m_Component:
   - component: {fileID: 422054283}
   - component: {fileID: 422054284}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -768,6 +845,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -842,7 +920,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 34
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -871,9 +949,23 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 150939713}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519420033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55093ff43d49ec145b86ebc3cd61a3eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  followSpeed: 0.5
+  offset: {x: 0, y: 0, z: -10}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -954,7 +1046,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &639362589
 GameObject:
@@ -1050,7 +1142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 690898811}
   - component: {fileID: 690898812}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1107,7 +1199,7 @@ GameObject:
   m_Component:
   - component: {fileID: 698505582}
   - component: {fileID: 698505583}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1163,7 +1255,7 @@ GameObject:
   m_Component:
   - component: {fileID: 699096675}
   - component: {fileID: 699096676}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1217,7 +1309,7 @@ GameObject:
   m_Component:
   - component: {fileID: 713631483}
   - component: {fileID: 713631484}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1271,7 +1363,7 @@ GameObject:
   m_Component:
   - component: {fileID: 852647126}
   - component: {fileID: 852647127}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1400,7 +1492,7 @@ GameObject:
   m_Component:
   - component: {fileID: 985684685}
   - component: {fileID: 985684686}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1455,7 +1547,7 @@ GameObject:
   m_Component:
   - component: {fileID: 990622742}
   - component: {fileID: 990622743}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1510,7 +1602,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1003053764}
   - component: {fileID: 1003053765}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1569,7 +1661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1088915800}
   - component: {fileID: 1088915801}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1626,7 +1718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1192818247}
   - component: {fileID: 1192818248}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1682,7 +1774,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1331952032}
   - component: {fileID: 1331952033}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1737,7 +1829,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1435411454}
   - component: {fileID: 1435411455}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1795,7 +1887,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1523722437}
   - component: {fileID: 1523722438}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1854,7 +1946,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1572215125}
   - component: {fileID: 1572215126}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1931,7 +2023,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1620079020}
   - component: {fileID: 1620079021}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2007,7 +2099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1622802749}
   - component: {fileID: 1622802750}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2063,7 +2155,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1627421881}
   - component: {fileID: 1627421882}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2123,7 +2215,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1646730947}
   - component: {fileID: 1646730948}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2178,7 +2270,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1829479670}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Colliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2237,7 +2329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1859109581}
   - component: {fileID: 1859109582}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2297,7 +2389,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2060860974}
   - component: {fileID: 2060860975}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Collider (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2358,7 +2450,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1435931462485913879, guid: 0430f1e635af9b74f971513bd02404a2, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1435931462485913879, guid: 0430f1e635af9b74f971513bd02404a2, type: 3}
       propertyPath: m_LocalPosition.x
