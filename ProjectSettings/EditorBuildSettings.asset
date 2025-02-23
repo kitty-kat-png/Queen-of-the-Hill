@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Victory.unity
     guid: 27dd142ce0b5b3c4a9da69316b8e4410
+  - enabled: 1
+    path: Assets/Scenes/Defeated.unity
+    guid: 977a14d8eb493d849a1014ceb2dec2d0
+  - enabled: 1
+    path: Assets/Scenes/ShopMenu.unity
+    guid: 16b1cbb0b9513bb42aa71472713a3b6e
   m_configObjects: {}
