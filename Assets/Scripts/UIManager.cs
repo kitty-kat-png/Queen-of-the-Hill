@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour
 {
     public void StartGame() //Starts game
     {
-        SceneManager.LoadScene("SampleScene"); //switch this to whatever the main game scene is named
+        SceneManager.LoadScene("Game"); //switch this to whatever the main game scene is named
         Debug.Log("Starting game");
     }
 
@@ -27,19 +27,5 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene("MainMenu");
         Debug.Log("Returning to main menu");
-    }
-
-    public void pauseGame() //SHOULD NOT BE HERE, SHOULD BE IN GAMEMANAGER SCRIPT
-    {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("PauseMenu");
-            Debug.Log("Game paused");
-
-            if(Input.GetKeyDown(KeyCode.Escape)) //exit pause menu
-            {
-                SceneManager.LoadScene("SampleScene"); // go back to game
-            }
-        }
     }
 }

@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
 
     public void unPauseGame()
     {
-         SceneManager.LoadScene("SampleScene");
+         SceneManager.LoadScene("Game");
          Debug.Log("Game unpaused");
          isGamePaused = false;
     }
