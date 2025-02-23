@@ -41,7 +41,7 @@ public class EnemyAI : MonoBehaviour
     private void OnDeath()
     {
         // Call the player's food system to add food
-        PlayerFood playerFood = player.GetComponent<PlayerFood>();
+        FoodManager playerFood = player.GetComponent<FoodManager>();
         if (playerFood != null)
         {
             playerFood.AddFood(foodReward);  // Reward food to the player
