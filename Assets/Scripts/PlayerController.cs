@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour
     private float xAxis;
     Animator anim;
 
+    // Food collection
+    public FoodManager fm;
+
     public static PlayerController Instance;
     private void Awake()
     {
@@ -127,6 +130,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             jumpBufferCounter--;
+        }
+    }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Food"))
+        {
+            Destroy(other.gameObject);
+            fm.FoodCount++;
         }
     }
 }
