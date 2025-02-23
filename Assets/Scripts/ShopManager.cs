@@ -6,41 +6,48 @@ using UnityEngine.EventSystems;
 
 public class ShopManager : MonoBehaviour
 {
+    public Text foodText; // UI text to show available Food
+    private FoodManager foodManager; // Reference to FoodManager
 
-    public int[,] shopItems = new int[4,4];
-    public int FoodCount;
-    public Text foodText;
-    
-    // Start is called before the first frame update
+    // Define item costs
+    private int soldierAntCost = 2;
+    private int workerAntCost = 1;
+
     void Start()
     {
-        foodText.text = "Food: " + FoodCount.ToString();
-        
-        // IDs
-        shopItems[1, 1] = 1;
-        shopItems[1, 2] = 2;
-
-        // Prices
-        shopItems[2, 1] = 1;
-        shopItems[2, 2] = 3;
-
-        // Ant Amounts
-        shopItems[3, 1] = 0;
-        shopItems[3, 2] = 0;
+        foodManager = FindObjectOfType<FoodManager>(); // Get FoodManager reference
+        UpdateUI();
     }
 
-    // Update is called once per frame
+    void UpdateUI()
+    {
+        foodText.text = "Food: " + foodManager.FoodCount.ToString();
+    }
+
     public void Buy()
     {
-        GameObject ButtonRef = GameObject.FindGameObjectWithTag("Shop").GetComponent<EventSystem>().currentSelectedGameObject;
+        GameObject buttonRef = EventSystem.current.currentSelectedGameObject;
 
-        if (FoodCount >= shopItems[2, ButtonRef.GetComponent<ButtonManager>().ItemID])
+        if (buttonRef != null)
         {
-            FoodCount -= shopItems[2, ButtonRef.GetComponent<ButtonManager>().ItemID];
-            shopItems[3, ButtonRef.GetComponent<ButtonManager>().ItemID]++;
-            foodText.text = "Food: " + FoodCount.ToString();
-            ButtonRef.GetComponent<ButtonManager>().antAmountText.text = shopItems[3, ButtonRef.GetComponent<ButtonManager>().ItemID].ToString();
+            ButtonManager buttonManager = buttonRef.GetComponent<ButtonManager>();
 
+            if (buttonManager != null)
+            {
+                int itemID = buttonManager.ItemID;
+                int cost = (itemID == 1) ? workerAntCost : (itemID == 2) ? soldierAntCost : 0;
+                GameObject antPrefab = (itemID == 1) ? foodManager.workerAntPrefab : (itemID == 2) ? foodManager.soldierAntPrefab : null;
+
+                if (foodManager.FoodCount >= cost && antPrefab != null)
+                {
+                    foodManager.FoodCount -= cost; // Deduct food
+                    foodManager.SpawnAnt(antPrefab); // Spawn the purchased ant
+
+                    // Update UI
+                    UpdateUI();
+                    buttonManager.antAmountText.text = (int.Parse(buttonManager.antAmountText.text) + 1).ToString();
+                }
+            }
         }
     }
 }
