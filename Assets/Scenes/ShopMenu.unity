@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9611999b507dbaf40a8f54fde166c420, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FoodCount: 5
+  FoodCount: 0
   foodText: {fileID: 474587038}
 --- !u!4 &40316394
 Transform:
@@ -1185,7 +1185,7 @@ GameObject:
   - component: {fileID: 1726858368}
   m_Layer: 0
   m_Name: EventSystem
-  m_TagString: Event
+  m_TagString: Shop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

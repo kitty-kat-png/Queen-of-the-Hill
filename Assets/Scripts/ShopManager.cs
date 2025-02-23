@@ -7,7 +7,7 @@ using UnityEngine.EventSystems;
 public class ShopManager : MonoBehaviour
 {
 
-    public int[,] shopItems = new int[3,2];
+    public int[,] shopItems = new int[4,4];
     public int FoodCount;
     public Text foodText;
     

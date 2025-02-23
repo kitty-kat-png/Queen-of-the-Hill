@@ -15,6 +15,6 @@ public class ButtonManager : MonoBehaviour
     void Update()
     {
         PriceText.text = "Food: " + ShopManagerVar.GetComponent<ShopManager>().shopItems[2, ItemID].ToString();
-        antAmountText.text = ShopManagerVar.GetComponent<ShopManager>().shopItems[3, ItemID].ToString();
+        antAmountText.text = "Ants: " + ShopManagerVar.GetComponent<ShopManager>().shopItems[3, ItemID].ToString();
     }
 }
